@@ -5,9 +5,7 @@
         <v-row class="grid-row align-center pa-0">
           <v-spacer class="hidden-sm-and-down"></v-spacer>
           <v-col cols="4" class="hidden-sm-and-down">
-            <a href="/" class="grid-image">
-              <v-img :src="images.logo" contain max-height="80"></v-img>
-            </a>
+            <v-img :src="images.logo" contain max-height="80"></v-img>
           </v-col>
           <v-col cols="auto" md="6" sm="8" xs="12" lg="5" class="pa-0">
             <a tabindex="0" role="button" aria-disabled="false" class="grid-title" href="/">
@@ -31,6 +29,14 @@
       </v-container>
     </v-toolbar>
     <v-navigation-drawer v-model="drawer" v-if="isLoggedIn" temporary app right hide-overlay color="#F0F3F7">
+      <v-toolbar color="#003399" dark class="toolbar" extended extension-height="5">
+        <v-container justify="start" fluid>
+          <v-row no-gutters align="center" class="grid-row">
+            <v-list-item-title align="left" class="toolbarTitle">{{ username }}</v-list-item-title>
+          </v-row>
+        </v-container>
+      </v-toolbar>
+      <v-divider></v-divider>
       <v-list align="left" nav>
         <div v-for="item in authorizedMenu" :key="item.title">
           <v-list-item v-if="!item.subLinks" :to="item.path" :id="item.id">
@@ -75,7 +81,7 @@ export default {
     };
   },
   computed: {
-    ...mapGetters(['isLoggedIn']),
+    ...mapGetters(['isLoggedIn', 'username']),
     authorizedMenu() { return this.filterMenu(this.menu); },
     menu() {
       let menu = [
