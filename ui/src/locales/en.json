@@ -27,5 +27,6 @@
   "resetPasswordSuccess" : "Your password has been reset successfully.",
   "resendVerificationEmailError": "An error occurred while sending the verification email. Please make sure that the information you provided is correct and retry in 1 minute.",
   "resetPasswordEmailError": "An error occurred while processing your request. Please make sure that you have an account with the provided email address and that you did not send another password reset request recently. Please try again in 1 minute.",
-  "registerError": "Your account could not be created. Please make sure that you have not registered already with the same email address (unique) or you haven't activated you account yet (check your inbox and maybe your SPAM folder). Please try again."
+  "registerError": "Your account could not be created. Please make sure that you have not registered already with the same email address (unique) or you haven't activated you account yet (check your inbox and maybe your SPAM folder). Please try again.",
+  "loginError": "Login failed. Please make sure that you have provided the correct credentials (email and password)."
 }
