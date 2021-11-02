@@ -31,7 +31,7 @@ describe('User register', () => {
         cy.get('#userMgtButton').click();
 
         //make sure on re-submission the user gets back a throttling error
-        cy.get('.alert.alert-error');
+        cy.get('.alert.alert-error').contains('1 minute');
     });
 
     it ('Verifies registered email address', () => {
@@ -67,7 +67,7 @@ describe('User forgot password', () => {
 
     it ('Check throttling error on reset password', () => {
         cy.get('#userMgtButton').click();
-        cy.get('.alert.alert-error');
+        cy.get('.alert.alert-error').contains('recently');
     });
 
     it ('Resets the password using the reset password url from the email', () => {
