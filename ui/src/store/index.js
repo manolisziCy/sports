@@ -64,7 +64,7 @@ function loadUserFromLocalStorage() {
     }
   }
 
-  return {authenticated: false, username: '', role: '', token: '', tokenExpirationTime: 0, name: '', surname: '', afm: '', amka: '', birthDate: '',id:''};
+  return {authenticated: false, username: '', token: '', tokenExpirationTime: 0, id:''};
 }
 
 function loadUsersFromLocalStorage() {
@@ -353,6 +353,9 @@ const Store = new Vuex.Store({
     isLoggedIn(state) {
       return state.user.authenticated && !hasTokenExpired(state.user.tokenExpirationTime);
     },
+    username(state) {
+      return state.user.authenticated ? state.user.username : null;
+    }
   }
 });
 
