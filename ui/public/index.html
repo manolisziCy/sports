@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width,initial-scale=1.0">
+
+    <meta data-n-head="ssr" data-hid="og:url" property="og:url" content="https://www.cytechmobile.com/">
+    <meta data-n-head="ssr" data-hid="twitter:url" property="twitter:url" content="https://www.cytechmobile.com/">
+    <meta name="keywords" content="This is a boilerplate">
+
+    <link rel="icon" href="<%= BASE_URL %>favicon.ico">
+    <title><%= process.env.VUE_APP_TITLE %></title>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:100,300,400,500,700,900">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@mdi/font@latest/css/materialdesignicons.min.css">
+    <link href="https://cdn.jsdelivr.net/npm/vuetify@<%= process.env.VUETIFY_VERSION %>/dist/vuetify.min.css" rel="stylesheet">
+    <!-- recaptcha v3-->
+    <script src="https://www.google.com/recaptcha/api.js?render=<%=process.env.VUE_APP_RECAPTCHA_SITE_KEY%>"></script>
+  </head>
+  <body>
+    <noscript>
+      <strong>We're sorry but <%= process.env.VUE_APP_TITLE %> doesn't work properly without JavaScript enabled. Please enable it to continue.</strong>
+    </noscript>
+    <div id="app"></div>
+    <!-- built files will be auto injected -->
+    <script src="https://cdn.jsdelivr.net/npm/vue@<%= process.env.VUE_VERSION %>"></script>
+    <script src="https://cdn.jsdelivr.net/npm/vuetify@<%= process.env.VUETIFY_VERSION %>"></script>
+    <script src="https://cdn.jsdelivr.net/npm/libphonenumber-js@<%= process.env.LIBPHONENUMBER_VERSION %>/bundle/libphonenumber-max.js"></script>
+  </body>
+</html>
