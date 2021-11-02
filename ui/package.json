@@ -1,0 +1,83 @@
+{
+  "name": "boilerplate-ui",
+  "version": "1.0.0",
+  "private": true,
+  "scripts": {
+    "serve": "vue-cli-service serve",
+    "build": "vue-cli-service build",
+    "test:unit": "npx cypress run-ct --env NODE_ENV=unit",
+    "dev:unit": "npx cypress open-ct --env NODE_ENV=unit",
+    "test:e2e": "vue-cli-service test:e2e --headless --mode ci",
+    "lint": "vue-cli-service lint",
+    "dev:e2e": "vue-cli-service test:e2e --mode ci",
+    "test": "cypress open"
+  },
+  "dependencies": {
+    "axios": "^0.24.0",
+    "core-js": "^3.19.0",
+    "libphonenumber-js": "^1.9.39",
+    "mobile-device-detect": "^0.4.3",
+    "vue": "^2.6.14",
+    "vue-i18n": "^8.26.5",
+    "vue-router": "^3.5.3",
+    "vue2-editor": "^2.10.3",
+    "vuetify": "^2.5.10",
+    "vuex": "^3.6.2"
+  },
+  "devDependencies": {
+    "@cypress/vue": "^2.2.3",
+    "@cypress/webpack-dev-server": "^1.5.0",
+    "@vue/cli-plugin-babel": "^4.5.14",
+    "@vue/cli-plugin-e2e-cypress": "^4.5.14",
+    "@vue/cli-plugin-eslint": "^4.5.14",
+    "@vue/cli-plugin-router": "^4.5.14",
+    "@vue/cli-plugin-unit-jest": "^4.5.14",
+    "@vue/cli-plugin-vuex": "^4.5.14",
+    "@vue/cli-service": "^4.5.14",
+    "babel-eslint": "^10.1.0",
+    "cypress": "^8.7.0",
+    "eslint": "^7.32.0",
+    "eslint-plugin-vue": "^7.20.0",
+    "pdf-parse": "^1.1.1",
+    "rxjs": "^7.4.0",
+    "sass": "^1.43.4",
+    "sass-loader": "^12.2.0",
+    "vue-template-compiler": "^2.6.14"
+  },
+  "eslintConfig": {
+    "root": true,
+    "env": {
+      "node": true
+    },
+    "extends": [
+      "plugin:vue/essential",
+      "eslint:recommended"
+    ],
+    "parserOptions": {
+      "parser": "babel-eslint"
+    },
+    "rules": {
+      "no-unused-vars": "off",
+      "vue/valid-v-slot": "off"
+    },
+    "overrides": [
+      {
+        "files": [
+          "**/__tests__/*.{j,t}s?(x)",
+          "**/tests/unit/**/*.spec.{j,t}s?(x)"
+        ],
+        "env": {
+          "jest": true
+        }
+      }
+    ]
+  },
+  "browserslist": [
+    "> 1%",
+    "last 2 versions",
+    "not dead"
+  ],
+  "jest": {
+    "preset": "@vue/cli-plugin-unit-jest"
+  }
+}
