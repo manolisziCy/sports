@@ -7,7 +7,7 @@ jobs:
     runs-on: [self-hosted, linux, v2]
     steps:
       - name: checkout
-        uses: actions/checkout@v2.3.5
+        uses: actions/checkout@v2.4.0
       - name: Cancel Previous Runs
         uses: n1hility/cancel-previous-runs@v2
         with:
