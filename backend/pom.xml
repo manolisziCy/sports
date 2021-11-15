@@ -28,7 +28,7 @@
         <scrypt.version>1.4.0</scrypt.version>
         <aws.sdk.version>2.17.63</aws.sdk.version>
         <javax.mail.version>1.6.2</javax.mail.version>
-        <quarkus.hibernate.types>0.1.0</quarkus.hibernate.types>
+        <quarkus.hibernate.types>0.2.0</quarkus.hibernate.types>
 
         <!-- test dependencies -->
         <testcontainers.version>1.16.2</testcontainers.version>
