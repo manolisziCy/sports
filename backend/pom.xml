@@ -22,7 +22,7 @@
 
         <surefire-plugin.version>2.22.2</surefire-plugin.version>
         <checkstyle-plugin.version>3.1.2</checkstyle-plugin.version>
-        <checkstyle-tools.version>9.1</checkstyle-tools.version>
+        <checkstyle-tools.version>9.2</checkstyle-tools.version>
 
         <guava.version>31.0.1-jre</guava.version>
         <scrypt.version>1.4.0</scrypt.version>
