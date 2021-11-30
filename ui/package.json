@@ -14,7 +14,7 @@
   },
   "dependencies": {
     "axios": "^0.24.0",
-    "core-js": "^3.19.1",
+    "core-js": "^3.19.2",
     "libphonenumber-js": "^1.9.43",
     "mobile-device-detect": "^0.4.3",
     "vue": "^2.6.14",
