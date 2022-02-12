@@ -47,8 +47,8 @@ public class MailDispatcher {
         }
         verifyEmailUrl += verifyEmailJwt;
 
-        String subj = config.getString("events.email.verify.subject", null);
-        String email = config.getString("events.email.verify.template", null)
+        String subj = config.getString("sports.email.verify.subject", null);
+        String email = config.getString("sports.email.verify.template", null)
                 .replace("$verifyEmailUrl", verifyEmailUrl);
 
         String from = config.getEmailVerifySender();
@@ -63,8 +63,8 @@ public class MailDispatcher {
             resetPasswordEmailUrl += "/";
         }
         resetPasswordEmailUrl += resetPasswordEmailJwt;
-        String subj = config.getString("events.email.reset.password.subject", null);
-        String email = config.getString("events.email.reset.password.template", null)
+        String subj = config.getString("sports.email.reset.password.subject", null);
+        String email = config.getString("sports.email.reset.password.template", null)
                 .replace("$resetPasswordEmailUrl", resetPasswordEmailUrl);
         String from = config.getEmailResetPasswordSender();
         String to = user.username;

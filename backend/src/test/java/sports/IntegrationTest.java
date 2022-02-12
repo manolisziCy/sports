@@ -213,15 +213,15 @@ public abstract class IntegrationTest {
         public Map<String, String> start() {
             if (DB == null) {
                 DB = new PostgreSQLContainer("postgres:alpine")
-                        .withDatabaseName("events")
-                        .withUsername("events")
-                        .withPassword("events");
+                        .withDatabaseName("sports")
+                        .withUsername("sports")
+                        .withPassword("sports");
                 DB.start();
                 String url = DB.getJdbcUrl();
                 logger.info("Setting datasource url: {}", url);
                 params.put("quarkus.datasource.jdbc.url", url);
-                params.put("quarkus.datasource.username", "events");
-                params.put("quarkus.datasource.password", "events");
+                params.put("quarkus.datasource.username", "sports");
+                params.put("quarkus.datasource.password", "sports");
             }
             return params;
         }

@@ -50,7 +50,7 @@ public class AuthHandler {
     public void init() throws Exception {
         jwtSignKey = KeyFactory.getInstance("RSA").generatePrivate(
                 new PKCS8EncodedKeySpec(Base64.getDecoder().decode(
-                        config.get("events.jwt.privatekey", String.class, ""))));
+                        config.get("sports.jwt.privatekey", String.class, ""))));
     }
 
     public String generateJwt(long userId, String username) {

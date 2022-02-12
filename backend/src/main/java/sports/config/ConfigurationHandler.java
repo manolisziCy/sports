@@ -13,10 +13,10 @@ public class ConfigurationHandler {
 
     public enum Prop {
         QUARKUS_SES_MOCK("quarkus.ses.mock"),
-        MAIL_TYPE("events.mail.type"),
+        MAIL_TYPE("sports.mail.type"),
 
-        API_BATCH_MAX_LIMIT("events.api.batch.max.limit"),
-        API_BATCH_TIMEOUT("events.api.batch.timeout"),
+        API_BATCH_MAX_LIMIT("sports.api.batch.max.limit"),
+        API_BATCH_TIMEOUT("sports.api.batch.timeout"),
 
         USER_PROCESSOR_EMAIL_PAUSE("user.processor.email.pause"),
         USER_PROCESSOR_EMAIL_THREADS("user.processor.email.threads"),
@@ -25,13 +25,13 @@ public class ConfigurationHandler {
         USER_PROCESSOR_EMAIL_LIMIT("user.processor.email.limit"),
         USER_PROCESSOR_EMAIL_RETRY_INTERVAL("user.processor.email.retry.interval"),
 
-        FORM_RENDER_URL("events.form.render.url"),
+        FORM_RENDER_URL("sports.form.render.url"),
 
-        EMAIL_VERIFY_SENDER("events.email.verify.sender"),
-        EMAIL_VERIFY_URL("events.email.verify.url"),
+        EMAIL_VERIFY_SENDER("sports.email.verify.sender"),
+        EMAIL_VERIFY_URL("sports.email.verify.url"),
 
-        EMAIL_RESET_PASSWORD_SENDER("events.email.reset.password.sender"),
-        EMAIL_RESET_PASSWORD_URL("events.email.reset.password.url"),
+        EMAIL_RESET_PASSWORD_SENDER("sports.email.reset.password.sender"),
+        EMAIL_RESET_PASSWORD_URL("sports.email.reset.password.url"),
 
         USER_EMAIL_RETRIES("user.email.max.retries"),
         USER_MAX_THROTTLING("user.max.throttling"),
