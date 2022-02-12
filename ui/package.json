@@ -41,7 +41,7 @@
     "pdf-parse": "^1.1.1",
     "rxjs": "^7.4.0",
     "sass": "^1.44.0",
-    "sass-loader": "^12.2.0",
+    "sass-loader": "^12.4.0",
     "vue-template-compiler": "^2.6.14"
   },
   "eslintConfig": {
