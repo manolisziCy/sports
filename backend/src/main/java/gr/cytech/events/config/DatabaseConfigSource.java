@@ -98,12 +98,12 @@ public class DatabaseConfigSource implements ConfigSource {
                 return Map.of();
             }
             var pgds = new PGSimpleDataSource();
-            pgds.setUser(env.getOrDefault("DB_USER", "events"));
-            pgds.setPassword(env.getOrDefault("DB_PASS", "events"));
+            pgds.setUser(env.getOrDefault("DB_USER", "sports"));
+            pgds.setPassword(env.getOrDefault("DB_PASS", "sports"));
             pgds.setServerNames(new String[]{env.getOrDefault("DB_HOST", "localhost")});
             int port = Integer.parseInt(env.getOrDefault("DB_PORT", "5432"));
             pgds.setPortNumbers(new int[]{port});
-            pgds.setDatabaseName(env.getOrDefault("DB_NAME", "events"));
+            pgds.setDatabaseName(env.getOrDefault("DB_NAME", "sports"));
 
             try (var c = pgds.getConnection();
                     var ps = c.prepareStatement("SELECT key,value FROM configuration");

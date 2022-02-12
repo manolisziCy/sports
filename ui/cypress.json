@@ -1,5 +1,0 @@
-{
-  "pluginsFile": "tests/plugins/index.js",
-  "defaultCommandTimeout" : 30000,
-  "video": true
-}
