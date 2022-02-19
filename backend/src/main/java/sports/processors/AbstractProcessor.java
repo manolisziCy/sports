@@ -31,7 +31,6 @@ public abstract class AbstractProcessor {
     protected ThreadPoolExecutor executor;
     protected RateLimiter rateLimiter;
 
-    @Inject protected Instance<MailDispatcher> imd;
     @Inject protected Instance<UserDao> udao;
     @Inject protected Instance<ConfigurationHandler> ich;
 

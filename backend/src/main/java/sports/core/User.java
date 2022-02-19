@@ -1,11 +1,19 @@
 package sports.core;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
+import io.quarkiverse.hibernate.types.json.JsonBinaryType;
+import io.quarkiverse.hibernate.types.json.JsonTypes;
+import io.quarkus.hibernate.orm.panache.PanacheEntityBase;
+import org.hibernate.annotations.TypeDef;
 
+import javax.persistence.*;
 import java.time.Instant;
 import java.util.Arrays;
 
-public class User {
+@Entity
+@Table(name = "users")
+@TypeDef(name = JsonTypes.JSON_BIN, typeClass = JsonBinaryType.class)
+public class User extends PanacheEntityBase {
     public enum Status {
         pending(0), active(1), suspended(2);
         public final int val;
@@ -19,6 +27,8 @@ public class User {
         }
     }
 
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @JsonProperty("id")
     public long id;
 

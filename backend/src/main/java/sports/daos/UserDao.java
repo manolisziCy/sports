@@ -103,23 +103,6 @@ public class UserDao {
         }
     }
 
-    @Transactional
-    public boolean addPendingUserEmail(User user, String lang, String actor, String action) {
-        try {
-            em.createNativeQuery("INSERT INTO pending_user_emails (user_id, lang, next_try, retries, actor, action) " +
-                            "VALUES (:id, :lang, now(), 0, :actor, :action) ON CONFLICT DO NOTHING")
-                    .setParameter("id", user.id)
-                    .setParameter("lang", Strings.isNullOrEmpty(lang) ? "en" : lang)
-                    .setParameter("actor", actor)
-                    .setParameter("action", action)
-                    .executeUpdate();
-            return true;
-        } catch (Exception e) {
-            logger.warn("error inserting pending email for user: {}", user, e);
-            return false;
-        }
-    }
-
     @Transactional(value = Transactional.TxType.REQUIRED)
     public User updateEmailVerified(User user) {
         try {
@@ -163,57 +146,6 @@ public class UserDao {
             logger.warn("error updating user password_reset_email_sent_at {}", user.username, e);
             return false;
         }
-    }
-
-    @Transactional(Transactional.TxType.MANDATORY)
-    public List<UserEmail> getPendingUserEmail() {
-        return em.unwrap(Session.class).createNativeQuery(
-                "SELECT u.*, pe.user_id, pe.lang,pe.next_try, pe.retries, pe.actor, pe.action " +
-                        "FROM pending_user_emails pe " +
-                        "JOIN users u ON (pe.user_id = u.id) " +
-                        "WHERE next_try < now() LIMIT :limit " +
-                        "FOR UPDATE OF pe SKIP LOCKED", Tuple.class)
-                .setParameter("limit", config.getEmailUserLimit())
-                .getResultStream()
-                .map(this::userEmailFromTuple)
-                .collect(Collectors.toList());
-    }
-
-    @Transactional(Transactional.TxType.MANDATORY)
-    public boolean updatePendingUserEmailResults(Collection<Long> success, HashMap<Long, Integer> fail) {
-        if (success != null && !success.isEmpty()) {
-            em.unwrap(Session.class).createNativeQuery(
-                    "DELETE FROM pending_user_emails WHERE user_id IN (:ids)")
-                    .setParameterList("ids", success)
-                    .executeUpdate();
-        }
-        if (fail != null && !fail.isEmpty()) {
-
-            var updateList = fail.entrySet().stream()
-                    .filter(entry -> entry.getValue() < config.getUserMaxEmailTries())
-                    .map(el -> el.getKey()).collect(Collectors.toList());
-
-            var deleteList = fail.entrySet().stream()
-                    .filter(entry -> entry.getValue() >= config.getUserMaxEmailTries())
-                    .map(el -> el.getKey()).collect(Collectors.toList());
-
-            if (!updateList.isEmpty()) {
-                em.unwrap(Session.class).createNativeQuery(
-                        "UPDATE pending_user_emails SET next_try = now() + CAST(:interval AS INTERVAL) , " +
-                                "retries = retries + 1 WHERE user_id IN (:ids)")
-                        .setParameterList("ids", updateList)
-                        .setParameter("interval", config.getProcessorUserEmailRetryInterval(false))
-                        .executeUpdate();
-            }
-
-            if (!deleteList.isEmpty()) {
-                em.unwrap(Session.class).createNativeQuery("DELETE FROM pending_user_emails WHERE user_id IN (:ids)")
-                        .setParameterList("ids", deleteList)
-                        .executeUpdate();
-            }
-
-        }
-        return true;
     }
 
     @Transactional(value = Transactional.TxType.REQUIRED)

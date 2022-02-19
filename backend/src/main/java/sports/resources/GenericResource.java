@@ -5,7 +5,6 @@ import com.google.common.base.Strings;
 import io.vertx.core.http.HttpServerRequest;
 import org.eclipse.microprofile.jwt.JsonWebToken;
 import sports.auth.AuthHandler;
-import sports.core.Event;
 
 import javax.enterprise.context.RequestScoped;
 import javax.inject.Inject;
@@ -27,10 +26,6 @@ public class GenericResource {
     @Inject JsonWebToken jwt;
     @Inject ObjectMapper mapper;
     @Inject RequestValidator validator;
-
-    protected Event event(Event.EventName name) {
-        return Event.create(name).client(remoteIp(), userAgent);
-    }
 
     protected String remoteIp() {
         return !Strings.isNullOrEmpty(forwardedFor) ? forwardedFor :

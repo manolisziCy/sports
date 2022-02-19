@@ -4,10 +4,8 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import sports.auth.AuthHandler;
 import sports.config.ConfigurationHandler;
 import sports.config.DatabaseConfigSource;
-import sports.core.Event;
 import sports.core.User;
 import sports.daos.ConfigurationDao;
-import sports.daos.EventDao;
 import sports.daos.UserDao;
 import sports.dev.StubServer;
 import sports.resources.UserResource;
@@ -48,7 +46,6 @@ public abstract class IntegrationTest {
     protected Logger logger = LoggerFactory.getLogger(getClass());
     @Inject protected DatabaseConfigSource dbc;
     @Inject protected ConfigurationDao cdao;
-    @Inject protected EventDao dao;
     @Inject protected UserDao ud;
     @Inject protected ObjectMapper mapper;
     @Inject protected EntityManager em;
@@ -65,9 +62,7 @@ public abstract class IntegrationTest {
             transaction.rollback();
         }
         pauseProcessors();
-        truncateQueues();
         truncateUsers();
-        truncateEvents();
         stubs.clear();
         mailbox.clear();
     }
@@ -78,23 +73,9 @@ public abstract class IntegrationTest {
             transaction.rollback();
         }
         pauseProcessors();
-        truncateQueues();
         truncateUsers();
-        truncateEvents();
         stubs.clear();
         mailbox.clear();
-    }
-
-
-    @Transactional
-    public void truncateQueues() {
-        //cleanup queue tables
-        em.createNativeQuery("TRUNCATE pending_user_emails CASCADE").executeUpdate();
-    }
-
-    @Transactional
-    public void truncateEvents() {
-        em.createNativeQuery("TRUNCATE events CASCADE").executeUpdate();
     }
 
     @Transactional
@@ -126,10 +107,6 @@ public abstract class IntegrationTest {
         return givenJsonRequest().header(HttpHeaders.AUTHORIZATION, "Bearer " + auth.generateJwt(0, username));
     }
 
-    public Event requestCreateEvent(Event event) {
-        return givenJsonRequest(event.recipient).body(event).post("/api/event").then().statusCode(200).extract().body().as(Event.class);
-    }
-
     public void configureDynamic(Map<String, String> config) {
         cdao.createOrUpdate(config);
         dbc.configReload();
@@ -147,18 +124,13 @@ public abstract class IntegrationTest {
                 .statusCode(200).extract().body().as(UserResource.AccountResponse.class);
         assertThat(resp).isNotNull().usingRecursiveComparison().ignoringExpectedNullFields().isEqualTo(new UserResource.AccountResponse(ar.username, null));
 
-        //now we need to find the email containing the email verification jwt
-        var mail = waitForMailTo(ar.username);
-        var html = mail.getHtml();
-        //extract the email verification jwt from the email
-        String jwt = html.split("href")[1].split("\"")[1].replace(config.getEmailVerifyUrl(), "");
-
         //make sure the user was persisted in db with status pending
         var user = ud.getByEmail(ar.username).orElseThrow();
         assertThat(user.status).isEqualTo(User.Status.pending);
 
         // use the extracted email verification jwt to verify the email
-        resp = givenJsonRequest().header(HttpHeaders.AUTHORIZATION, "Bearer " + jwt).put("/api/users/verify-email").then()
+        // todo jwt
+        resp = givenJsonRequest().header(HttpHeaders.AUTHORIZATION, "Bearer ").put("/api/users/verify-email").then()
                 .statusCode(200).extract().body().as(UserResource.AccountResponse.class);
         assertThat(resp).isNotNull().usingRecursiveComparison().ignoringExpectedNullFields().isEqualTo(new UserResource.AccountResponse(ar.username, null));
 
